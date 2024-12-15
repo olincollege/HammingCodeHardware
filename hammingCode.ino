@@ -1,28 +1,44 @@
-const int og_bit_1 = 1; //Pin for bit 1 of the original message
-const int og_bit_2 = 2; //Pin for bit 2 of the original message
-const int og_bit_3 = 3; //Pin for bit 3 ""
-const int og_bit_4 = 4; //Pin for bit 4 ""
+/*
+HAMMING-CODE-ENCODER
 
-String _message = "";
+Instructions:
+Recommended use in Arduino IDE.
+Open serial monitor and make sure that Arduino is connected to a serial port on your computer. 
+Set baud rate in serial monitor to 115200, or you can change it below but make sure your serial
+monitor baud rate is always equal to BAUD-RATE.
+Send valid 4 bit message such as "1111", "0000", "1101", "0100", etc. to the serial monitor. 
+High or low value will be sent from pins 1-4 according to the message.
+To send a new message just send a new message in the serial monitor.
+*/
 
-const double BAUD_RATE = 115200;
+const int og_bit_1 = 1; // Pin for bit 1 of the original message
+const int og_bit_2 = 2; // Pin for bit 2 of the original message
+const int og_bit_3 = 3; // Pin for bit 3 ""
+const int og_bit_4 = 4; // Pin for bit 4 ""
+
+String _message = ""; // Defining a blank message to start with
+
+const double BAUD_RATE = 115200; // Baud rate for the serial monitor
 
 void setup() {
-  // put your setup code here, to run once:
-  pinMode(og_bit_1, OUTPUT);
+  // Assign each of the pins an OUTPUT mode
+  pinMode(og_bit_1, OUTPUT); 
   pinMode(og_bit_2, OUTPUT);
   pinMode(og_bit_3, OUTPUT);
   pinMode(og_bit_4, OUTPUT);
 
-  Serial.begin(BAUD_RATE);
+  // Begin the serial monitor and send a start up message
+  // (Edit: message doesn't seem to work right now idk why, not important though)
+  Serial.begin(BAUD_RATE); 
   Serial.println("---- Program Started ----");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  bool messageReceived = ReadFromSerial();
+  // Make sure the message sent to the serial monitor is an acutal message to be processed
+  bool messageReceived = ReadFromSerial(); 
 
-  if (messageReceived == true)
+  // Process the message only if it is a valid message
+  if (messageReceived == true) 
   {
     ProcessMessage(_message);
   }
@@ -33,7 +49,7 @@ bool ReadFromSerial()
 {    
     // Local variables   
     static String msgBuffer;        // Stores the received message
-    static bool isMessage = true;
+    static bool isMessage = true;   // Stores if the message is valid or not
     byte recByte;                   // Byte received from the serial port
     
     // Check if any new data is available, if not exit
@@ -53,27 +69,34 @@ bool ReadFromSerial()
         // Write what was received back to the serial port
         Serial.print("Received: "); 
         Serial.println(_message); 
+
         // Clear local variables
         msgBuffer = "";
+
+        // If message is invalid then tell the user
         if (isMessage == false)
         {
           Serial.println("Invalid Message");
         }
+
+        // Reset local variables
         isMessage = true;
       
         return true;
     }
 
-    // Save data to one of the receive buffers
+    // Check that the message sent is only 1s or 0s 
     if ((char)recByte == '1' || (char)recByte == '0')
     {
       if (isMessage == true)
       {
+        // If the message is valid then add it to the message to be processed
         msgBuffer += (char)recByte;
       }
     }
     else
     {
+      // If the message is not valid then don't add it 
       isMessage = false;
       return false;
     }
@@ -81,20 +104,24 @@ bool ReadFromSerial()
     return false;
 }
 
-// Processes the command and data, sends result to serial port
+// Processes the message, sends result to serial port
 
 void ProcessMessage(String message)
 {  
-    // Process command
+    // Process command only if it is 4 bits long
     if (message.length() == 4)
     {
+      // Show user what message they are sending
       Serial.print("Sending message:  ");
       Serial.println(message);
+
+      // Encode the message to local variables
       String bit_1 = message.substring(0, 1);
       String bit_2 = message.substring(1, 2);
       String bit_3 = message.substring(2, 3);
       String bit_4 = message.substring(3, 4);
 
+      // 
       if (bit_1 == "1")
       {
         digitalWrite(og_bit_1, HIGH);

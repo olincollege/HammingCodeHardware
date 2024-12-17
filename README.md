@@ -29,6 +29,6 @@ Tyler Ewald: tewald@olin.edu
 
 Zayn Patel: zpatel@olin.edu
 
-Manual de Tezanos Pinto: mdetezanospinto@olin.edu
+Manuel de Tezanos Pinto: mdetezanospinto@olin.edu
 
 Tane Koh: mkoh@olin.edu

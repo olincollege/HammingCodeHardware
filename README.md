@@ -18,7 +18,7 @@ The following is a list of resources our team found helpful to understand the ma
 
 [eigenchris Hamming Codes Playlist](www.youtube.com/playlist?list=PLJHszsWbB6hqkOyFCQOAlQtfzC1G9sf2_): Videos 1, 2a, 2b, 2c are helpful to learn how linear algebra and mod 2 arithmetic is used to encode and decode Hamming Codes. 
 
-[Introduce to Algebraic Coding Theory Book](http://faculty.olin.edu/sadams/eccbook2007-2.pdf): Our Professor, Sarah Spence Adams, wrote a book on Algebraic Coding Theory which she did research on for several years. We read chapters 1 and 2 to supplement our knowledge from eigenchris' videos and benchmark our understanding with practice problems. 
+[Introduction to Algebraic Coding Theory Book](http://faculty.olin.edu/sadams/eccbook2007-2.pdf): Our Professor, Sarah Spence Adams, wrote a book on Algebraic Coding Theory which she did research on for several years. We read chapters 1 and 2 to supplement our knowledge from eigenchris' videos and benchmark our understanding with practice problems. 
 
 [Ben Eater's Hamming Codes in hardware tutorial](https://www.youtube.com/watch?v=h0jloehRKas): We relied on Ben Eater's video, exclusively, for our hardware implementation. This video builds on the math we learned using the three previous resources and provides a very helpful step-by-step guide for implementation. (Helpful tip: Test your XOR gate chips to make sure they work before you start putting them on the breadboard!)
 
